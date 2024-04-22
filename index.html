@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wi-Fi Location Form</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Wi-Fi Based Location</h2>
+    <form id="wifiForm">
+      <div class="form-group">
+        <label for="macAddress">MAC Address of Wi-Fi access point:</label>
+        <input type="text" class="form-control" id="macAddress" name="macAddress" required>
+      </div>
+      <div class="form-group">
+        <label for="signalStrength">Signal Strength (dBm):</label>
+        <input type="text" class="form-control" id="signalStrength" name="signalStrength">
+      </div>
+      <div class="form-group">
+        <label for="channel">Channel (MHz):</label>
+        <input type="text" class="form-control" id="channel" name="channel">
+      </div>
+      <button type="button" class="btn btn-primary" id="addWifi">+ Add</button>
+      <button type="button" class="btn btn-success" id="getLocation">Get Location Information</button>
+      <button type="button" class="btn btn-danger" id="quit">Quit</button>
+    </form>
+
+    <!-- Display entered details -->
+    <div id="enteredDetails">
+      <h3>Entered Wi-Fi Details</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>MAC Address</th>
+            <th>Signal Strength (dBm)</th>
+            <th>Channel</th>
+          </tr>
+        </thead>
+        <tbody id="wifiDetails">
+          <!-- Dynamically added Wi-Fi details will be displayed here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $("#addWifi").click(function(){
+        var mac = $("#macAddress").val();
+        var signal = $("#signalStrength").val();
+        var channel = $("#channel").val();
+        
+        // Append the new Wi-Fi access point to the table
+        var wifiInfo = "<tr>"
+                     + "  <td>" + mac + "</td>"
+                     + "  <td>" + signal + "</td>"
+                     + "  <td>" + channel + "</td>"
+                     + "</tr>";
+        $("#wifiDetails").append(wifiInfo);
+      });
+
+      $("#quit").click(function(){
+        location.reload();
+      });
+
+      $("#getLocation").click(function(){
+        alert("Location could not be determined.");
+        // Alternatively, you can modify the DOM to display the message
+        // $("#enteredDetails").append("<p>Location could not be determined.</p>");
+      });
+    });
+  </script>
+</body>
+</html>
+
+
